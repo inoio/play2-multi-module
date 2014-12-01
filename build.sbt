@@ -23,12 +23,12 @@ lazy val commonDependencies = Seq(
   mockito
 )
 
-lazy val mod1 = project.in(file("modules/mod1")).enablePlugins(PlayScala)
+lazy val frontend = project.in(file("modules/frontend")).enablePlugins(PlayScala)
   .settings(libraryDependencies ++= commonDependencies)
 
-lazy val mod2 = project.in(file("modules/mod2")).enablePlugins(PlayScala)
+lazy val backend = project.in(file("modules/backend")).enablePlugins(PlayScala)
   .settings(libraryDependencies ++= commonDependencies)
 
 lazy val main = project.in(file("."))
-  .aggregate(mod1, mod2)
+  .aggregate(frontend, backend)
   .enablePlugins(PlayScala)

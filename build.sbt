@@ -1,4 +1,5 @@
 import play.PlayImport.PlayKeys
+import play.PlayScala
 
 name := "play2-multi"
 
@@ -28,3 +29,7 @@ lazy val mod1 = project.in(file("modules/mod1")).enablePlugins(PlayScala)
 
 lazy val mod2 = project.in(file("modules/mod2")).enablePlugins(PlayScala)
   .settings(libraryDependencies := commonDependencies)
+
+lazy val main = project.in(file("."))
+  .aggregate(mod1, mod2)
+  .enablePlugins(PlayScala)

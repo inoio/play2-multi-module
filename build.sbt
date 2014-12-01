@@ -32,9 +32,20 @@ lazy val commonDependencies = Seq(
 lazy val frontend = project.in(file("modules/frontend")).enablePlugins(PlayScala)
   .settings(libraryDependencies ++= commonDependencies)
 
-lazy val backend = project.in(file("modules/backend")).enablePlugins(PlayScala, GatlingPlugin)
+lazy val backend = project.in(file("modules/backend")).enablePlugins(PlayScala)
   .settings(libraryDependencies ++= commonDependencies)
 
+// Execute tests with gatling:test, gatling:testOnly
+// Start the recorder with gatling:startRecorder
+lazy val stress_tests = project.in(file("modules/stress_tests"))
+  .enablePlugins(GatlingPlugin)
+  .settings(
+    libraryDependencies ++= Seq(
+    gatling,
+    test_framework
+    )
+  )
+
 lazy val main = project.in(file("."))
-  .aggregate(frontend, backend)
+  .aggregate(frontend, backend, stress_tests)
   .enablePlugins(PlayScala)
